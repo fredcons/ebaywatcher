@@ -6,10 +6,6 @@ import os
 
 class Search:
 
-    RECORDS_CATEGORY = 176985
-
-    EBAY_SITES = ["EBAY-US", "EBAY-FR", "EBAY-IT", "EBAY-GB"]
-
     def search(self, date, search_definitions):
         all_results = set()
         for search_definition in search_definitions:
@@ -20,7 +16,7 @@ class Search:
 
     def single_search(self, date, search_definition):
         all_results = set()
-        for ebay_site in self.EBAY_SITES:
+        for ebay_site in search_definition.sites:
             all_results.update(self.single_site_search(ebay_site, date, search_definition))
         return all_results
 
@@ -35,7 +31,7 @@ class Search:
             api_request = {
                 'keywords': search_definition.get_searchable_text(),
                 'descriptionSearch': str(search_definition.include_description).lower(),
-                'categoryId': self.RECORDS_CATEGORY,
+                'categoryId': search_definition.category,
                 'itemFilter': [
                     {'name': 'ListingType', 'value': search_definition.get_searchable_listing_type()},
                     {'name': 'StartTimeFrom', 'value': start_date}

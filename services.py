@@ -4,7 +4,7 @@ import sendgrid
 import os
 from datetime import datetime, timedelta
 from sendgrid.helpers.mail import Mail, Email, Content
-from model import SearchDefinition
+from model import SearchDefinition, EmailConfig, SearchConfig, Config
 
 
 class MailFormatter:
@@ -19,13 +19,19 @@ class MailFormatter:
 
 class SearchDefinitionLoader:
 
+    def __init__(self, search_config):
+        self.search_default_category = search_config.search_default_category
+        self.search_default_sites = search_config.search_default_sites
+
     def search_definition_constructor(self, loader, node):
         values = loader.construct_mapping(node)
         text = values["text"]
         use_exact_match = values.get("use_exact_match", True)
         include_description = values.get("include_description", True)
         auction_only = values.get("auction_only", True)
-        return SearchDefinition(text, use_exact_match, include_description, auction_only)
+        category = values.get("category", self.search_default_category)
+        sites = values.get("sites", self.search_default_sites)
+        return SearchDefinition(text, category, sites, use_exact_match, include_description, auction_only)
 
     def load_definitions(self, search_definitions_path):
         stream = open(search_definitions_path, 'r')
@@ -34,18 +40,44 @@ class SearchDefinitionLoader:
         return list(search_definitions)
 
 
+class ConfigLoader:
+
+    def config_constructor(self, loader, node):
+        values = loader.construct_mapping(node)
+
+        email_from = values["email_from"]
+        email_to = values["email_to"]
+        email_title = values["email_title"]
+        email_config = EmailConfig(email_from, email_to, email_title)
+
+        search_default_category = values["search_default_category"]
+        search_default_sites = values["search_default_sites"]
+        search_config = SearchConfig(search_default_category, search_default_sites)
+
+        config = Config(email_config, search_config)
+
+        return config
+
+    def load_config(self, config_path):
+        stream = open(config_path, 'r')
+        yaml.add_constructor("!model.Config", self.config_constructor)
+        config = yaml.load(stream)
+        return config
+
+
 class MailSender:
 
-    def __init__(self):
+    def __init__(self, email_config):
         sendgrid_api_key = os.environ.get('SENDGRID_API_KEY')
         self.sendgrid = sendgrid.SendGridAPIClient(apikey=sendgrid_api_key)
-        self.from_mail = "frederic.cons@gmail.com"
-        self.to_mail = "frederic.cons@gmail.com"
+        self.email_from = email_config.email_from
+        self.email_to = email_config.email_to
+        self.email_title = email_config.email_title
 
     def send_mail(self, content):
-        from_email = Email(self.from_mail)
-        to_email = Email(self.to_mail)
-        subject = "Vos alertes Ebay"
+        from_email = Email(self.email_from)
+        to_email = Email(self.email_to)
+        subject = self.email_title
         content = Content("text/html", content)
         mail = Mail(from_email, subject, to_email, content)
         self.sendgrid.client.mail.send.post(request_body=mail.get())

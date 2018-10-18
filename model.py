@@ -22,11 +22,13 @@ class SearchResult:
 
 class SearchDefinition:
 
-    def __init__(self, text, use_exact_match=True, include_description=True, auction_only=True):
+    def __init__(self, text, category, sites, use_exact_match=True, include_description=True, auction_only=True):
         self.text = text
         self.use_exact_match = use_exact_match
         self.include_description = include_description
         self.auction_only = auction_only
+        self.category = category
+        self.sites = sites
 
     def get_searchable_text(self):
         return "\"" + self.text + "\"" if self.use_exact_match else self.text
@@ -36,3 +38,25 @@ class SearchDefinition:
 
     def __str__(self):
         return str(self.__dict__)
+
+
+class EmailConfig:
+
+    def __init__(self, email_from, email_to, email_title):
+        self.email_from = email_from
+        self.email_to = email_to
+        self.email_title = email_title
+
+
+class SearchConfig:
+
+    def __init__(self, search_default_category, search_default_sites):
+        self.search_default_category = search_default_category
+        self.search_default_sites = search_default_sites
+
+
+class Config:
+
+    def __init__(self, email_config, search_config):
+        self.email_config = email_config
+        self.search_config = search_config
