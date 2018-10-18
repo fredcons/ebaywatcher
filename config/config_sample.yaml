@@ -1,7 +1,7 @@
 ---
 !model.Config
-email_from: frederic.cons@gmail.com
-email_to: frederic.cons@gmail.com
+email_from: foo@gmail.com
+email_to: foo@gmail.com
 email_title: Vos alertes Ebay
 search_default_category: 176985
 search_default_sites: 
