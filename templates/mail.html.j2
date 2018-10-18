@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+
+    <table>
+      <tr>
+        <th>&nbsp;</th>
+        <th>Titre</th>
+        <th>Categorie</th>
+        <th>Prix</th> 
+        <th>Fin</th>
+      </tr>  
+      {% for result in results %}
+      <tr>
+        <td><img src="{{ result.image_url }}" /></td>
+        <td><a href="{{ result.item_url }}">{{ result.title }}</a></td>       
+        <td>{{ result.category_name }}</td>
+        <td>{{ result.price }} {{ result.currency }}</td>
+        <td>{{ result.end_time }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+  </body>
+</html>
