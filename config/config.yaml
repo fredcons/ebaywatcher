@@ -1,0 +1,12 @@
+---
+!model.Config
+email_from: frederic.cons@gmail.com
+email_to: frederic.cons@gmail.com
+email_title: Vos alertes Ebay
+search_default_category: 176985
+search_default_sites: 
+- EBAY-FR
+- EBAY-US
+- EBAY-IT
+- EBAY-GB
+- 
