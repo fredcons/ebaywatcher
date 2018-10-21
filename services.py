@@ -5,7 +5,7 @@ import os
 from datetime import datetime, timedelta
 from sendgrid.helpers.mail import Mail, Email, Content
 from model import SearchDefinition, EmailConfig, SearchConfig, Config
-from terminaltables import AsciiTable
+from terminaltables import SingleTable
 
 class MailFormatter:
 
@@ -99,5 +99,5 @@ class ConsolePrinter:
         data.append(["Titre", "Prix", "Catégorie", "Date"])
         for result in results:
             data.append([result.title, result.price + " " + result.currency, result.category_name, result.end_time])
-        table = AsciiTable(data)
+        table = SingleTable(data, title="%s résultats trouvés" % (len(results)))
         print(table.table)
