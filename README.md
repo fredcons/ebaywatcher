@@ -96,6 +96,5 @@ You can have many blocks like this, one per search, thus building a list of Sear
 
 Some nice things that could be done (but probably won't):
 - Use a pluggable email implementation
-- Most text are in french, should be I18N'ed
 - Use a tag on each SearchDefinition, and then group results by tag in the email
 

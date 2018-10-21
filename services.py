@@ -100,8 +100,8 @@ class ConsolePrinter:
     @staticmethod
     def print_results(results):
         data = []
-        data.append(["Titre", "Prix", "Catégorie", "Date"])
+        data.append(["Title", "Price", "Category", "End time"])
         for result in results:
             data.append([result.title, result.price + " " + result.currency, result.category_name, result.end_time])
-        table = SingleTable(data, title=" %s résultats trouvés " % (len(results)))
+        table = SingleTable(data, title=" %s results found " % (len(results)))
         print(table.table)
