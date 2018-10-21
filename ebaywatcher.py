@@ -22,7 +22,7 @@ def run_search(config_path, search_definitions_path, num_days, mail):
 
     start_date = DateFormatter.get_start_date(num_days)
 
-    search = Search()
+    search = Search(config.search_config)
     results = search.search(start_date, search_definitions)
 
     if mail:
@@ -31,6 +31,7 @@ def run_search(config_path, search_definitions_path, num_days, mail):
         mail_sender.send_mail(mail_content)
     else:
         ConsolePrinter.print_results(results)
+
 
 if __name__ == '__main__':
     run_search()

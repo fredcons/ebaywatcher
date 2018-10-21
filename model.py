@@ -42,7 +42,8 @@ class SearchDefinition:
 
 class EmailConfig:
 
-    def __init__(self, email_from, email_to, email_title):
+    def __init__(self, sendgrid_api_key, email_from, email_to, email_title):
+        self.sendgrid_api_key = sendgrid_api_key
         self.email_from = email_from
         self.email_to = email_to
         self.email_title = email_title
@@ -50,7 +51,8 @@ class EmailConfig:
 
 class SearchConfig:
 
-    def __init__(self, search_default_category, search_default_sites):
+    def __init__(self, ebay_app_id, search_default_category, search_default_sites):
+        self.ebay_app_id = ebay_app_id
         self.search_default_category = search_default_category
         self.search_default_sites = search_default_sites
 

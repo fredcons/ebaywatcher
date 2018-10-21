@@ -2,10 +2,12 @@ from jinja2 import Environment, FileSystemLoader
 import yaml
 import sendgrid
 import os
+import re
 from datetime import datetime, timedelta
 from sendgrid.helpers.mail import Mail, Email, Content
 from model import SearchDefinition, EmailConfig, SearchConfig, Config
 from terminaltables import SingleTable
+
 
 class MailFormatter:
 
@@ -44,15 +46,18 @@ class ConfigLoader:
 
     def config_constructor(self, loader, node):
         values = loader.construct_mapping(node)
+        env_var_pattern = re.compile(r'^\<%= ENV\[\'(.*)\'\] %\>(.*)$')
 
         email_from = values["email_from"]
         email_to = values["email_to"]
         email_title = values["email_title"]
-        email_config = EmailConfig(email_from, email_to, email_title)
+        sendgrid_api_key = os.environ.get(env_var_pattern.match(values["sendgrid_api_key"]).groups()[0])
+        email_config = EmailConfig(sendgrid_api_key, email_from, email_to, email_title)
 
         search_default_category = values["search_default_category"]
         search_default_sites = values["search_default_sites"]
-        search_config = SearchConfig(search_default_category, search_default_sites)
+        ebay_app_id = os.environ.get(env_var_pattern.match(values["ebay_app_id"]).groups()[0])
+        search_config = SearchConfig(ebay_app_id, search_default_category, search_default_sites)
 
         config = Config(email_config, search_config)
 
@@ -68,8 +73,7 @@ class ConfigLoader:
 class MailSender:
 
     def __init__(self, email_config):
-        sendgrid_api_key = os.environ.get('SENDGRID_API_KEY')
-        self.sendgrid = sendgrid.SendGridAPIClient(apikey=sendgrid_api_key)
+        self.sendgrid = sendgrid.SendGridAPIClient(apikey=email_config.sendgrid_api_key)
         self.email_from = email_config.email_from
         self.email_to = email_config.email_to
         self.email_title = email_config.email_title
@@ -99,5 +103,5 @@ class ConsolePrinter:
         data.append(["Titre", "Prix", "Catégorie", "Date"])
         for result in results:
             data.append([result.title, result.price + " " + result.currency, result.category_name, result.end_time])
-        table = SingleTable(data, title="%s résultats trouvés" % (len(results)))
+        table = SingleTable(data, title=" %s résultats trouvés " % (len(results)))
         print(table.table)

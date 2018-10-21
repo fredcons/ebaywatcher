@@ -1,10 +1,12 @@
 from model import SearchResult
 from ebaysdk.exception import ConnectionError
 from ebaysdk.finding import Connection
-import os
 
 
 class Search:
+
+    def __init__(self, search_config):
+        self.ebay_app_id = search_config.ebay_app_id
 
     def search(self, date, search_definitions):
         all_results = set()
@@ -25,8 +27,7 @@ class Search:
         results = set()
 
         try:
-            ebay_app_id = os.environ.get('EBAY_APP_ID')
-            api = Connection(siteid=site, appid=ebay_app_id, config_file=None)
+            api = Connection(siteid=site, appid=self.ebay_app_id, config_file=None)
 
             api_request = {
                 'keywords': search_definition.get_searchable_text(),
