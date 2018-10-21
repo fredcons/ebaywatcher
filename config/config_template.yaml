@@ -1,0 +1,17 @@
+---
+!model.Config
+# The email to send emails from
+email_from: foo@gmail.com
+# The email to send email to
+email_to: foo@gmail.com
+# The email title
+email_title: Vos alertes Ebay
+# The default category to aply to search definition. Handy if all your search run on a single category
+search_default_category: 176985
+# The defaut Ebay sites to search in. Items available in different sites are deduplicated by their id. 
+search_default_sites: 
+- EBAY-FR
+- EBAY-US
+- EBAY-IT
+- EBAY-GB
+- 

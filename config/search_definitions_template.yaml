@@ -1,4 +1,17 @@
 ---
 !model.SearchDefinition
-text: stereolab
-include_description: False
+# the text to search for
+text: my query 
+# whether to also search for it in the description (default behaviour)
+include_description: True
+# whether to search for the exact string (default behaviour)
+use_exact_match: True
+# whether to search for auctions only (default), or auction + buy it now items
+auction_only: True
+# the category to search in (not required, will default to the default category defined in config.yaml. At least one of them must be defined)
+category: 175
+# ebay sites to search in (not required, will default to the default sites defined in config.yaml. At least one site should be defined)
+sites:
+- EBAY-FR
+- EBAY-US
+
