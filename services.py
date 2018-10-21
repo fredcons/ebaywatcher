@@ -5,7 +5,7 @@ import os
 from datetime import datetime, timedelta
 from sendgrid.helpers.mail import Mail, Email, Content
 from model import SearchDefinition, EmailConfig, SearchConfig, Config
-
+from terminaltables import AsciiTable
 
 class MailFormatter:
 
@@ -89,3 +89,15 @@ class DateFormatter:
     def get_start_date(days_back):
         start_date = datetime.today() - timedelta(hours=(days_back * 24) + 3)
         return start_date.strftime("%Y-%m-%dT%H:%M:%S")
+
+
+class ConsolePrinter:
+
+    @staticmethod
+    def print_results(results):
+        data = []
+        data.append(["Titre", "Prix", "Catégorie", "Date"])
+        for result in results:
+            data.append([result.title, result.price + " " + result.currency, result.category_name, result.end_time])
+        table = AsciiTable(data)
+        print(table.table)
