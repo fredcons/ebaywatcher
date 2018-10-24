@@ -8,6 +8,11 @@ email_to: foo@gmail.com
 email_title: Your Ebay alerts
 # The default category to aply to search definition. Handy if all your search run on a single category
 search_default_category: 176985
+# the sendgrid api key
+sendgrid_api_key: <%= ENV['SENDGRID_API_KEY'] %> 
+# the ebay app id
+ebay_app_id: <%= ENV['EBAY_APP_ID'] %>
+
 # The defaut Ebay sites to search in. Items available in different sites are deduplicated by their id. 
 search_default_sites: 
 - EBAY-FR

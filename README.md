@@ -92,6 +92,22 @@ sites:
 
 You can have many blocks like this, one per search, thus building a list of SearchDefinitions.
 
+## Explore your searches with a notebook
+
+You can first install Jupyter : 
+
+```
+pip install -r requirements_dev.txt
+```
+
+And then laucnh jupyter : 
+
+```
+jupyter notebook
+```
+
+The main ingredients of the scripts are there for exploration.
+
 ## Todo
 
 Some nice things that could be done (but probably won't):
