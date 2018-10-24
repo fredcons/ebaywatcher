@@ -1,6 +1,7 @@
 from model import SearchResult
 from ebaysdk.exception import ConnectionError
 from ebaysdk.finding import Connection
+from orderedset import OrderedSet
 
 
 class Search:
@@ -9,7 +10,7 @@ class Search:
         self.ebay_app_id = search_config.ebay_app_id
 
     def search(self, date, search_definitions):
-        all_results = set()
+        all_results = OrderedSet()
         for search_definition in search_definitions:
             results = self.single_search(date, search_definition)
             print("Search for %s gave %s results" % (search_definition.text, str(len(results))))
@@ -17,7 +18,7 @@ class Search:
         return all_results
 
     def single_search(self, date, search_definition):
-        all_results = set()
+        all_results = OrderedSet()
         for ebay_site in search_definition.sites:
             all_results.update(self.single_site_search(ebay_site, date, search_definition))
         return all_results
