@@ -8,3 +8,4 @@ workflows:
       # first let's lint      
       - pylint/lint:
           working-directory: /tmp    
+          checkout: false
