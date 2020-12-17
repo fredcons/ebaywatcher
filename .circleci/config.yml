@@ -1,10 +1,8 @@
-
+version: 2.1
 orbs:
-  # Declare a dependency on the welcome-orb
-  welcome: circleci/welcome-orb@0.4.1
   python-lint: qventus/python-lint@0.0.6 
 
 workflows:
-  welcome:
+  build:
     jobs:
       - pylint/lint
