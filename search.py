@@ -28,7 +28,7 @@ class Search:
         results = set()
 
         try:
-            api = Connection(siteid=site, appid=self.ebay_app_id, config_file=None)
+            api = Connection(siteid=site, appid=self.ebay_app_id, config_file=None, https=True)
 
             api_request = {
                 'keywords': search_definition.get_searchable_text(),
@@ -49,9 +49,10 @@ class Search:
                                              item.primaryCategory.categoryName,
                                              "{:.2f}".format(float(item.sellingStatus.currentPrice.value)),
                                              item.sellingStatus.currentPrice._currencyId,
-                                             item.galleryURL,
+                                             getattr(item, 'galleryURL', ''),
                                              item.viewItemURL,
-                                             item.listingInfo.endTime))
+                                             item.listingInfo.endTime,
+                                             search_definition.text))
             #        print(response.reply.searchResult.item[0])
             # else: print("No result")
 

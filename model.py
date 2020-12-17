@@ -1,6 +1,6 @@
 class SearchResult:
 
-    def __init__(self, id, title, category_name, price, currency, image_url, item_url, end_time):
+    def __init__(self, id, title, category_name, price, currency, image_url, item_url, end_time, search):
         self.id = id
         self.title = title
         self.category_name = category_name
@@ -9,6 +9,7 @@ class SearchResult:
         self.image_url = image_url
         self.item_url = item_url
         self.end_time = end_time
+        self.search = search
 
     def __str__(self):
         return str(self.__dict__)

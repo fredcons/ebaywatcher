@@ -8,16 +8,18 @@
       <tr>
         <th>&nbsp;</th>
         <th>Title</th>
-        <th>Category</th>
         <th>Price</th>
+        <th>Search</th>
+        <th>Category</th>
         <th>End time</th>
       </tr>  
       {% for result in results %}
       <tr>
         <td><img src="{{ result.image_url }}" /></td>
         <td><a href="{{ result.item_url }}">{{ result.title }}</a></td>       
-        <td>{{ result.category_name }}</td>
         <td>{{ result.price }} {{ result.currency }}</td>
+        <td>{{ result.search }}</td>
+        <td>{{ result.category_name }}</td>
         <td>{{ result.end_time }}</td>
       </tr>
       {% endfor %}
