@@ -9,6 +9,8 @@ class Search:
     def __init__(self, search_config):
         self.ebay_app_id = search_config.ebay_app_id
 
+
+
     def search(self, date, search_definitions):
         all_results = OrderedSet()
         for search_definition in search_definitions:
