@@ -4,6 +4,8 @@ orbs:
 
 workflows:
   build:
+    parameters:
+      working-directory: /tmp      
     jobs:
       # first let's lint      
       - pylint/lint
