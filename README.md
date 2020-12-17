@@ -2,7 +2,7 @@
 
 A simple CLI tool to send you a daily digest of your favourite ebay searches.
 
-## Prerequisites
+## Prerequisites
 
 You should have : 
 - a working Python environment
@@ -107,10 +107,4 @@ jupyter notebook
 ```
 
 The main ingredients of the scripts are there for exploration.
-
-## Todo
-
-Some nice things that could be done (but probably won't):
-- Use a pluggable email implementation
-- Use a tag on each SearchDefinition, and then group results by tag in the email
 
