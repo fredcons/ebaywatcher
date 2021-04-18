@@ -3,3 +3,4 @@ __pycache__/*
 config/config.yaml
 config/search_definitions.yaml
 *.pyc
+.idea/*
